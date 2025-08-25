@@ -9,56 +9,77 @@ export default function HomePage() {
     { id: 4, name: 'عطر کرید اونتوس', price: '9,200,000 تومان', image: '/images/creed.jpg' },
   ];
 
+  // کامپوننت داخلی Header
+  const Header = () => (
+    <header className="flex items-center justify-between p-6 border-b border-gray-800 bg-black">
+      <h1 className="text-3xl font-extrabold text-yellow-500">هلدینگ حلوایی</h1>
+      <nav>
+        <a href="#shop" className="mr-4 hover:text-yellow-500">فروشگاه</a>
+        <a href="#cart" className="hover:text-yellow-500">سبد خرید</a>
+      </nav>
+    </header>
+  );
+
+  // کامپوننت داخلی Footer
+  const Footer = () => (
+    <footer className="p-6 text-center text-gray-500 border-t border-gray-800 mt-6">
+      © 2025 هلدینگ حلوایی | فروشگاه تخصصی عطر و ادکلن
+    </footer>
+  );
+
+  // کامپوننت داخلی ProductCard
+  const ProductCard = ({ product }) => (
+    <div className="bg-gray-900 p-4 rounded-xl shadow-lg hover:shadow-2xl transition">
+      <img src={product.image} alt={product.name} className="w-full h-56 object-cover rounded-t-xl" />
+      <h3 className="font-semibold text-lg mt-2">{product.name}</h3>
+      <p className="text-yellow-500 font-bold">{product.price}</p>
+      <button className="mt-2 w-full bg-yellow-500 text-black py-2 rounded hover:bg-yellow-600">
+        افزودن به سبد
+      </button>
+    </div>
+  );
+
+  // کامپوننت داخلی CategoryCard
+  const CategoryCard = ({ name }) => (
+    <div className="bg-gray-900 p-4 rounded-xl text-center font-semibold hover:bg-yellow-500 hover:text-black transition cursor-pointer">
+      {name}
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <header className="flex items-center justify-between p-6 bg-black border-b border-gray-800">
-        <h1 className="text-3xl font-extrabold text-yellow-500">هلدینگ حلوایی</h1>
-        <button className="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">
-          سبد خرید
-        </button>
-      </header>
+      <Header />
 
-      {/* Hero Banner */}
-      <section className="flex flex-col items-center justify-center text-center h-[400px] bg-gradient-to-r from-black via-gray-900 to-black">
-        <h2 className="text-5xl font-bold text-yellow-500">عطر لوکس، هویت شما</h2>
-        <p className="text-gray-300 mt-4">برترین برندهای جهانی با تضمین اصالت</p>
-        <button className="mt-6 bg-yellow-500 text-black px-6 py-3 rounded hover:bg-yellow-600">
+      {/* Hero */}
+      <section className="flex flex-col items-center justify-center h-[500px] bg-gradient-to-r from-black via-gray-900 to-black text-center">
+        <h1 className="text-5xl font-bold text-yellow-500">عطر لوکس، هویت شما</h1>
+        <p className="mt-4 text-gray-300">برترین برندهای جهانی با تضمین اصالت</p>
+        <button className="mt-6 px-6 py-3 bg-yellow-500 text-black rounded hover:bg-yellow-600">
           همین حالا خرید کنید
         </button>
       </section>
 
       {/* Categories */}
       <section className="p-6 max-w-7xl mx-auto">
-        <h3 className="text-2xl font-semibold mb-6 text-yellow-500">دسته‌بندی محصولات</h3>
+        <h2 className="text-3xl text-yellow-500 font-bold mb-6">دسته‌بندی‌ها</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-          {categories.map((cat, index) => (
-            <div key={index} className="bg-gray-900 p-4 rounded-xl text-center font-semibold hover:bg-yellow-500 hover:text-black transition cursor-pointer">
-              {cat}
-            </div>
+          {categories.map((cat, idx) => (
+            <CategoryCard key={idx} name={cat} />
           ))}
         </div>
       </section>
 
-      {/* Products */}
+      {/* Featured Products */}
       <section className="p-6 max-w-7xl mx-auto">
-        <h3 className="text-2xl font-semibold mb-6 text-yellow-500">محصولات ویژه</h3>
+        <h2 className="text-3xl text-yellow-500 font-bold mb-6">محصولات ویژه</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <div key={product.id} className="bg-gray-900 p-4 rounded-xl shadow-lg hover:shadow-xl transition">
-              <img src={product.image} alt={product.name} className="w-full h-56 object-cover rounded-t-xl" />
-              <h4 className="font-semibold text-lg mt-2 mb-1">{product.name}</h4>
-              <p className="text-yellow-500 font-bold mb-4">{product.price}</p>
-              <button className="w-full bg-yellow-500 text-black py-2 rounded hover:bg-yellow-600">افزودن به سبد</button>
-            </div>
+          {products.map(product => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="p-6 text-center text-gray-500 border-t border-gray-800 mt-6">
-        © 2025 هلدینگ حلوایی | فروشگاه تخصصی عطر و ادکلن
-      </footer>
+      <Footer />
     </div>
   );
 }
